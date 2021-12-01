@@ -6,9 +6,9 @@ from gym import spaces
 from pathlib import Path
 from tabulate import tabulate
 from copy import deepcopy
-from environment.network import Network
-from environment.arrival import ArrivalProcess
-from environment.sfc import ServiceFunctionChain
+from nfvdeep.environment.network import Network
+from nfvdeep.environment.arrival import ArrivalProcess
+from nfvdeep.environment.sfc import ServiceFunctionChain
 
 
 class Env(gym.Env):
@@ -22,12 +22,12 @@ class Env(gym.Env):
         self.overlay_path = overlay_path
         self.arrival_config = arrival_config
 
-        # define action and statespace
+        # define action and state space
         _, properties = Network.check_overlay(self.overlay_path)
         num_nodes = properties['num_nodes']
         num_node_resources = properties['num_node_resources']
 
-        # action `num_nodes` refers to volutarily rejecting the VNF embedding
+        # action `num_nodes` refers to voluntarily rejecting the VNF embedding
         self.action_space = spaces.Discrete(num_nodes + 1)
 
         obs_dim = num_nodes * num_node_resources + num_node_resources + 3

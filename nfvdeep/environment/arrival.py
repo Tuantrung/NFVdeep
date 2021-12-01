@@ -5,11 +5,14 @@ import random
 import numpy as np
 from abc import abstractmethod
 from collections.abc import Generator
-from environment.sfc import ServiceFunctionChain
+from nfvdeep.environment.sfc import ServiceFunctionChain
 
 
 class ArrivalProcess(Generator):
-    """Abstract class that implements the request generation. Inheriting classes implement the parameterization of to be generated SFCs."""
+    """
+    Abstract class that implements the request generation.
+    Inheriting classes implement the parameterization of to be generated SFCs.
+    """
 
     def __init__(self, **kwargs):
         self.timeslot = 1
@@ -23,7 +26,8 @@ class ArrivalProcess(Generator):
         heapq.heapify(self.requests)
 
     def send(self, arg):
-        """Implements the generator interface. Generates a list of arriving SFC requests for the
+        """
+        Implements the generator interface. Generates a list of arriving SFC requests for the
         respective timeslot starting from timeslot one.
         """
         req = []
@@ -41,12 +45,16 @@ class ArrivalProcess(Generator):
         return req
 
     def throw(self, type=None, value=None, traceback=None):
-        """Raises an Error iff all SFCs were already generated."""
+        """
+        Raises an Error iff all SFCs were already generated.
+        """
         raise StopIteration
 
     @staticmethod
     def factory(config):
-        """Factory method to allow for an easier generation of different arrival processes."""
+        """
+        Factory method to allow for an easier generation of different arrival processes.
+        """
 
         if 'type' not in config:
             arrival = JSONArrivalProcess(config)
@@ -74,7 +82,10 @@ class ArrivalProcess(Generator):
 
 class JSONArrivalProcess(ArrivalProcess):
     def __init__(self, request_path):
-        """Instantiate an arrival process that generates SFC requests at their respective arrival timeslot from a specified JSON file."""
+        """
+        Instantiate an arrival process that generates SFC requests
+        at their respective arrival timeslot from a specified JSON file.
+        """
         assert(isinstance(request_path, str))
         assert(request_path.endswith('.json'))
         self.request_path = request_path
@@ -118,7 +129,6 @@ class StochasticProcess(ArrivalProcess):
                 arrival_time=arrival_time, ttl=ttl, **sfc_params)
             req.append(sfc)
 
-        
         return req
 
 

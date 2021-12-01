@@ -3,7 +3,7 @@ import operator
 import networkx as nx
 from collections import Counter
 from networkx.exception import NetworkXNoPath
-from environment.sfc import ServiceFunctionChain
+from nfvdeep.environment.sfc import ServiceFunctionChain
 
 
 class Network:
@@ -136,8 +136,10 @@ class Network:
         return latency
 
     def check_embeddable(self, sfc: ServiceFunctionChain, vnf_offset=0):
-        """ Check whether the (partial) SFC embedding can still satisfy its constraints, i.e. check if for all remaining VNFs
-        some node with sufficient resources exists and if the SFC constraints can still be satisfied.
+        """
+        Check whether the (partial) SFC embedding can still satisfy its constraints,
+        i.e. check if for all remaining VNFs some node with sufficient resources exists
+        and if the SFC constraints can still be satisfied.
         """
         vnfs = sfc.vnfs[vnf_offset:]
         # check whether remaining resources are sufficient to embed further VNFs
@@ -238,7 +240,10 @@ class Network:
 
     @staticmethod
     def check_overlay(overlay):
-        """Checks whether the overlay adhers to the expected parameter types and attributes, returns the parsed network instance."""
+        """
+        Checks whether the overlay adhers to the expected parameter types and attributes,
+        returns the parsed network instance.
+        """
 
         # parse overlay from gpickle if
         if isinstance(overlay, str) and overlay.endswith('.gpickle'):
