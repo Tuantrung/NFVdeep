@@ -92,7 +92,9 @@ class JSONArrivalProcess(ArrivalProcess):
         super().__init__()
 
     def generate_requests(self):
-        """Generates SFC objects according to their paramterization as given by a JSON file."""
+        """
+        Generates SFC objects according to their paramterization as given by a JSON file.
+        """
         # load SFCs from specified JSON file
         with open(self.request_path, 'rb') as file:
             requests = json.load(file)

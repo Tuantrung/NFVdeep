@@ -28,6 +28,8 @@ dpcpp-cpp-rt==2021.4.0
 filelock==3.0.12
 future==0.18.2
 gast==0.3.3
+geographiclib==1.52
+geopy==2.2.0
 google==3.0.0
 google-api-core==1.31.4
 google-auth==1.35.0

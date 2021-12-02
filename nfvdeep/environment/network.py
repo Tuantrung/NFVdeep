@@ -8,12 +8,14 @@ from nfvdeep.environment.sfc import ServiceFunctionChain
 
 class Network:
     def __init__(self, overlay, costs={'cpu': 0.2, 'memory': 0.2, 'bandwidth': 0.006}):
-        """Internal representation of the network & embedded VNFs.
+        """
+        Internal representation of the network & embedded VNFs.
 
         Args:
           overlay (str or networkx graph): Path to an overlay graph that specifies the network's properties
                 or a valid networkx graph.
-          costs (tuple of float): The cost for one unit of cpu, memory and bandwidth"""
+          costs (tuple of float): The cost for one unit of cpu, memory and bandwidth
+        """
 
         # parse and validate the overlay network
         self.overlay, properties = Network.check_overlay(overlay)
@@ -26,7 +28,9 @@ class Network:
         self.sfc_embedding = dict()
 
     def update(self, time_increment=1):
-        """Let the network run for the given time"""
+        """
+        Let the network run for the given time
+        """
 
         # TODO: increment timestep before / after updating SFCs?
         self.timestep += time_increment
@@ -39,7 +43,9 @@ class Network:
         self.sfc_embedding = sfc_embedding
 
     def embed_vnf(self, sfc: ServiceFunctionChain, vnf: tuple, node: int):
-        """Embeds the Virtual Network Function to a specified node."""
+        """
+        Embeds the Virtual Network Function to a specified node.
+        """
 
         # reject an embedding if the network does not provide sufficient VNF resources or the action
         # voluntarily chooses no embedding
@@ -54,7 +60,8 @@ class Network:
         return True
 
     def calculate_resources(self, remaining=True) -> list:
-        """Calculates the remaining resources for all nodes.
+        """
+        Calculates the remaining resources for all nodes.
 
         Returns:
             List of dictionaries s.t. the i-th entry is a representation of the remaining resources of the i-th node
@@ -81,7 +88,8 @@ class Network:
         return resources
 
     def check_sfc_constraints(self, sfc):
-        """ Check whether the (partial) SFC embedding satisfies the bandwidth and latency constraints, i.e.
+        """
+        Check whether the (partial) SFC embedding satisfies the bandwidth and latency constraints, i.e.
         if the bandwidth demand can be satisfied by ANY node and if the SFC can still satisfy its latency constraints.
         """
 
@@ -118,10 +126,12 @@ class Network:
         return bandwidth_constraint and latency_constraint
 
     def calculate_current_latency(self, sfc):
-        """Calculates the current latency of the SFC i.e the end to end delay from the start of the SFC to the currently
-            last embedded VNF of the SFC
+        """
+        Calculates the current latency of the SFC i.e the end to end delay from the start of the SFC to the currently
+        last embedded VNF of the SFC
 
-           Throws NetworkXNoPath, if there is no possible path between two VNFs"""
+           Throws NetworkXNoPath, if there is no possible path between two VNFs
+        """
 
         latency = 0
 
@@ -158,7 +168,9 @@ class Network:
         return vnf_constraints and sfc_constraints
 
     def check_vnf_resources(self, vnf, sfc, node=None):
-        """ Check whether some node exists with sufficient resources or if the specified node provides enough resources. """
+        """
+        Check whether some node exists with sufficient resources or if the specified node provides enough resources.
+        """
 
         resources = self.calculate_resources()
         if node is not None:
@@ -172,7 +184,9 @@ class Network:
         return bool(nodes)
 
     def calculate_occupied_resources(self):
-        """Calculates a dictionary that summarizes the amount of occupied resources per type."""
+        """
+        Calculates a dictionary that summarizes the amount of occupied resources per type.
+        """
 
         # compute the amount of maximum resources / available resources per node
         resources = self.calculate_resources(remaining=False)
@@ -193,7 +207,9 @@ class Network:
         return costs
 
     def calculate_resource_utilization(self):
-        """Calculates a dictionary that summarizes the resource utilization per resource type."""
+        """
+        Calculates a dictionary that summarizes the resource utilization per resource type.
+        """
 
         # compute the amount of maximum resources / available resources per node
         max_resources = self.calculate_resources(remaining=False)
@@ -211,13 +227,17 @@ class Network:
         return utilization
 
     def get_operating_servers(self):
-        """Computes the set of indices that describe all operating servers."""
+        """
+        Computes the set of indices that describe all operating servers.
+        """
         operating_servers = {
             server for sfc in self.sfc_embedding for server in self.sfc_embedding[sfc]}
         return operating_servers
 
     def calculate_resource_costs(self):
-        """Computes a dictionary that summarizes the current operation costs per resource type."""
+        """
+        Computes a dictionary that summarizes the current operation costs per resource type.
+        """
         # get a set of currently operating nodes
         operating_servers = self.get_operating_servers()
 

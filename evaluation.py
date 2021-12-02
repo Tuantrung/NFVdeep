@@ -12,7 +12,8 @@ from stable_baselines3.common.evaluation import evaluate_policy
 
 
 def evaluate_final_policy(n_eval_episodes, agent, env):
-    """ Evaluates the final policy of an agent for the specified experiment.
+    """
+    Evaluates the final policy of an agent for the specified experiment.
     Args:
       n_eval_episodes (int): number of evaluation episodes
       agent: The trained agent
@@ -44,12 +45,14 @@ def evaluate_final_policy(n_eval_episodes, agent, env):
 
 
 def safe_experiment(results, args):
-    """ Safes one experiment together with its metainformation into a csv file."""
+    """
+    Safes one experiment together with its metainformation into a csv file.
+    """
 
     if not os.path.exists(args['output']):
         os.makedirs(args['output'])
 
-    # safe environemt & hyperparameters used to generate the results
+    # safe environment & hyperparameters used to generate the results
     with open(Path(args['output']) / 'args.json', 'a') as file:
         file.write(json.dumps(args))
         file.write("\n")

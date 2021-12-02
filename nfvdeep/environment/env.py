@@ -13,11 +13,13 @@ from nfvdeep.environment.sfc import ServiceFunctionChain
 
 class Env(gym.Env):
     def __init__(self, overlay_path, arrival_config):
-        """A new Gym environment. This environment represents the environment of NFVdeep.
+        """
+        A new Gym environment. This environment represents the environment of NFVdeep.
 
         Args:
           overlay_path: A connection to the network where the agent will act
-          arrival_config: Dictionary that specifies the properties of the requests."""
+          arrival_config: Dictionary that specifies the properties of the requests.
+        """
 
         self.overlay_path = overlay_path
         self.arrival_config = arrival_config
@@ -37,7 +39,8 @@ class Env(gym.Env):
         self.reward = 0
 
     def step(self, action):
-        """Process the action of the agent.
+        """
+        Process the action of the agent.
 
         Args:
           action(int): The action is the number of the server where the current VNF will be embedded to. 
@@ -151,7 +154,9 @@ class Env(gym.Env):
         return self.compute_state(done=self.done), self.reward, self.done, info
 
     def reset(self):
-        """Resets the environment to the default state"""
+        """
+        Resets the environment to the default state
+        """
 
         self.done = False
         # initialize arrival process that will generate SFC requests
@@ -173,8 +178,9 @@ class Env(gym.Env):
         return self.compute_state()
 
     def progress_intra_timeslot(self):
-        """ Progress (SFC, VNF) indices to the next combination in the request batch that requires an 
-        invokation of the agent. 
+        """
+        Progress (SFC, VNF) indices to the next combination in the request batch that requires an
+        invocation of the agent.
         """
 
         # progress the SFC indices to a SFC for whom an interaction with the agent is required,
@@ -195,7 +201,8 @@ class Env(gym.Env):
         return batch_completed
 
     def progress_inter_timeslots(self):
-        """ Progress `request_batch` and `network` over inter timeslots, i.e. until novel requests arrive.
+        """
+        Progress `request_batch` and `network` over inter timeslots, i.e. until novel requests arrive.
         """
         # empty the `request_batch` since we assume that all requests have been processed
         self.request_batch = []
@@ -240,7 +247,9 @@ class Env(gym.Env):
         return rep
 
     def compute_state(self, done=False):
-        """Compute the environment's state representation."""
+        """
+        Compute the environment's state representation.
+        """
 
         if (done == True):
             return np.asarray([])
@@ -279,12 +288,14 @@ class Env(gym.Env):
         return observation
 
     def compute_reward(self, sfc, last_in_sfc, sfc_valid, batch_completed):
-        """Computes the reward signal dependent on whether a SFC has been succsessfully embedded
+        """
+        Computes the reward signal dependent on whether a SFC has been succsessfully embedded
         Args:
           sfc: The current SFC
           last_in_sfc (bool): determines, if the current sfc is finished i.e. the last vnf was processed
           sfc_valid (bool): determines, if the current sfc was valid
-          batch_completed (bool): determines, if the current batch of sfc is completed"""
+          batch_completed (bool): determines, if the current batch of sfc is completed
+        """
 
         if not (last_in_sfc and sfc_valid):
             reward = 0
