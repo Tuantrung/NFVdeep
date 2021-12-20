@@ -289,7 +289,7 @@ class Env(gym.Env):
 
     def compute_reward(self, sfc, last_in_sfc, sfc_valid, batch_completed):
         """
-        Computes the reward signal dependent on whether a SFC has been succsessfully embedded
+        Computes the reward signal dependent on whether a SFC has been successfully embedded
         Args:
           sfc: The current SFC
           last_in_sfc (bool): determines, if the current sfc is finished i.e. the last vnf was processed

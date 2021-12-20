@@ -1,0 +1,1 @@
+{"total_train_timesteps": 1000, "debug": true, "overlay": "./data/trung_network.gpickle", "requests": "./data/requests.json", "agent": "PPO", "logs": "logs/", "eval_episodes": 1, "trials": 1000, "output": "output/"}

@@ -7,15 +7,19 @@ import argparse
 
 def generate_graph(file):
     G = nx.Graph()
-    G.add_node(0, cpu=3, memory=10.0, bandwidth=40.0)
-    G.add_node(1, cpu=3, memory=25.0, bandwidth=40.0)
-    G.add_node(2, cpu=10, memory=50.0, bandwidth=40.0)
-    #G.add_node(3, cpu=1, memory=1.0, bandwidth=10.0)
-    #G.add_node(4, cpu=3, memory=30.0, bandwidth=40.0)
+    G.add_node(0, cpu=64, memory=64.0, bandwidth=100.0)
+    G.add_node(1, cpu=64, memory=64.0, bandwidth=100.0)
+    G.add_node(2, cpu=64, memory=64.0, bandwidth=100.0)
+    G.add_node(3, cpu=64, memory=64.0, bandwidth=100.0)
+    G.add_node(4, cpu=64, memory=64.0, bandwidth=100.0)
+    G.add_node(5, cpu=64, memory=64.0, bandwidth=100.0)
     G.add_edge(0, 1, latency=50.0)
+    G.add_edge(0, 4, latency=50.0)
     G.add_edge(1, 2, latency=50.0)
-    #G.add_edge(2, 3, latency=50.0)
-    #G.add_edge(3, 4, latency=500.0)
+    G.add_edge(1, 5, latency=50.0)
+    G.add_edge(2, 3, latency=50.0)
+    G.add_edge(3, 5, latency=50.0)
+    G.add_edge(4, 5, latency=50.0)
 
     nx.write_gpickle(G, file)
 

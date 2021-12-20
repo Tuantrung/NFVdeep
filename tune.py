@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     # arguments to specify parameters of the experiment evaluation
     parser.add_argument('--total_train_timesteps', type=int,  nargs='?',
-                        const=1, default=1000000, help='Number of training steps for the agent')
+                        const=1, default=10000, help='Number of training steps for the agent')
     parser.add_argument('--debug', action='store_false',
                         help='Whether to enable debugging logs of the environment')
     parser.add_argument('--overlay', type=str,
@@ -51,8 +51,8 @@ if __name__ == '__main__':
                         help='Number of cpus ray tune will use for the optimization')
 
     # arguments to specify the final policy's evaluation
-    parser.add_argument('--eval_episodes', type=int,
-                        default=20, help='Number of evaluation steps for one trained agent')
+    parser.add_argument('--eval_episodes', type=int, default=10,
+                        help='Number of evaluation steps for one trained agent')
     parser.add_argument('--trials', type=int, default=10,
                         help='Number of trials evaluating the agent')
     parser.add_argument('--output', type=str, required=True,
