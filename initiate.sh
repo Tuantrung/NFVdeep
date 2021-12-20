@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Generate python virtual environment"
-python3 -m venv venv1
+python3.8 -m venv venv1
 
 echo "Activate virtual environment"
 cd venv1 && source bin/activate
